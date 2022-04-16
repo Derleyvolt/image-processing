@@ -16,12 +16,20 @@ template<typename T>
 class Matrix {
 public:
     Matrix(int h, int w) : h(h), w(w) {
-        mat = new T*[h];
-        for(int i = 0; i < h; i++) {
-            mat[i] = new T[w];
-        }
+	mat = new T*[h];
+	for(int i = 0; i < h; i++) {
+	    mat[i] = new T[w];
+	}
     }
 
+    ~Matrix() {
+        for(int i = 0; i < h; i++) {
+            delete mat[i];
+        }
+
+        delete mat;
+    }
+	
 	T*& operator[](int x) {
 		return mat[x];
 	}
