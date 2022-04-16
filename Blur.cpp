@@ -88,19 +88,17 @@ void blur(image& img) {
     int h = img.h;
     int w = img.w;
 
-    #define x_ker 5
-    #define y_ker 5
+    #define x_ker 3
+    #define y_ker 3
 
     // podemos aumentar o matriz filter
     // e com isso obter a média de mais vizinhos.
     // é importante que a soma de todos os elementos de filter
     // seja 1, pro bilho da imagem se manter.
     double filter[x_ker][y_ker] = {
-        0.04, 0.04, 0.04, 0.04, 0.04,
-        0.04, 0.04, 0.04, 0.04, 0.04,
-        0.04, 0.04, 0.04, 0.04, 0.04,
-        0.04, 0.04, 0.04, 0.04, 0.04,
-        0.04, 0.04, 0.04, 0.04, 0.04,
+        0.1, 0.1, 0.1,
+        0.1, 0.1, 0.1,
+        0.1, 0.1, 0.1
     };
 
     for(int i = 0; i < h; i++) {
