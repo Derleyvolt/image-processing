@@ -1,6 +1,6 @@
 # image-processing
 
-## Smoothing
+## Smoothing/Blurring
 
 Before
 
@@ -19,3 +19,15 @@ Before
 After
 
 ![out](https://user-images.githubusercontent.com/35679266/163719732-3bddd1f9-b6aa-40e2-a6ce-e290da4c2b36.png)
+
+
+## Grayscale
+
+Before
+
+![lena](https://user-images.githubusercontent.com/35679266/163722913-2008436c-0174-43d5-ba38-fca9d7c51d9d.png)
+
+After
+
+![out](https://user-images.githubusercontent.com/35679266/163722918-9fa65b2a-bb32-4aa8-9bdf-f59df8eedfe2.png)
+
