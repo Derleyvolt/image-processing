@@ -84,6 +84,9 @@ private:
     Matrix<RGB> img;
 };
 
+// as 3 componentes do pixel agora terão os mesmos valores.. dessa forma podemos considerar que a imagem
+// possui apenas 1 canal (e que pode ser diminuída em 3x sem perca de informação).
+
 void grayscale(image& img) {
 	Matrix<RGB>& aux = img.get_img();
 
