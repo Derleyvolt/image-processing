@@ -1,6 +1,6 @@
 # image-processing
 
-## Blur
+## Smoothing
 
 Before
 
