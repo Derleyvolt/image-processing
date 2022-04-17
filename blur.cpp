@@ -88,14 +88,13 @@ void blur(image& img) {
     int h = img.h;
     int w = img.w;
 
-    #define x_ker 3
-    #define y_ker 3
+    #define kernel_dim 3
 
     // podemos aumentar o matriz filter
     // e com isso obter a média de mais vizinhos.
     // é importante que a soma de todos os elementos de filter
     // seja 1, pro bilho da imagem se manter.
-    double filter[x_ker][y_ker] = {
+    double filter[kernel_dim][kernel_dim] = {
         0.1, 0.1, 0.1,
         0.1, 0.1, 0.1,
         0.1, 0.1, 0.1
@@ -105,15 +104,15 @@ void blur(image& img) {
         for(int j = 0; j < w; j++) {
             int r = 0, g = 0, b = 0;
 
-            for(int xf = 0; xf < x_ker; xf++) {
-                for(int yf = 0; yf < y_ker; yf++) {
+            for(int xf = 0; xf < kernel_dim; xf++) {
+                for(int yf = 0; yf < kernel_dim; yf++) {
                     // se o valor for maior que h ou w, ou menor que 0, a gente faz um
                     // wrap-around pra pegar o pixel da outra parte da matriz.
                     // isso é mais fácil que tratar os casos onde (x, y) pertencem à
                     // borda da matriz
-                    r += img.get_img()[(i-1+xf + h) % h][(j-1+yf + w) % w].r * filter[xf][yf];
-                    g += img.get_img()[(i-1+xf + h) % h][(j-1+yf + w) % w].g * filter[xf][yf];
-                    b += img.get_img()[(i-1+xf + h) % h][(j-1+yf + w) % w].b * filter[xf][yf];
+                    r += img.get_img()[(i-kernel_dim/2+xf + h) % h][(j-kernel_dim/2+yf + w) % w].r * filter[xf][yf];
+                    g += img.get_img()[(i-kernel_dim/2+xf + h) % h][(j-kernel_dim/2+yf + w) % w].g * filter[xf][yf];
+                    b += img.get_img()[(i-kernel_dim/2+xf + h) % h][(j-kernel_dim/2+yf + w) % w].b * filter[xf][yf];
                 }
             }
 
