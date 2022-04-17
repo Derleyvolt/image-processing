@@ -10,6 +10,17 @@ After
 
 ![image](https://user-images.githubusercontent.com/35679266/163719785-c26e2424-b179-4f73-a11c-a3fe148f02ee.png)
 
+## Gaussian Blur
+
+Before
+
+![photo3](https://user-images.githubusercontent.com/35679266/163735870-1b11ba2d-1c59-47c2-b423-1969940ed3b1.png)
+
+After
+
+![out](https://user-images.githubusercontent.com/35679266/163735875-29fe0269-cbf0-426a-9c7a-a42af06d6141.png)
+
+
 ## Thresholding 
 
 Before
