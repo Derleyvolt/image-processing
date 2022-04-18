@@ -66,6 +66,9 @@ public:
         }
     }
 
+    image(int h, int w) : h(h), w(w), img(h, w) {
+    }
+
     void raw_img(uint8_t* dest) {
         for(int i = 0; i < h; i++) {
             for(int j = 0; j < w; j++) {
@@ -85,7 +88,9 @@ private:
     Matrix<RGB> img;
 };
 
-double gaussian_kernel[5][5];
+#define N 5
+
+double gaussian_kernel[N][N];
 
 void generate_gaussian_kernel() {
     double aux = 2.0, sum = 0.0;
@@ -100,8 +105,8 @@ void generate_gaussian_kernel() {
         }
     }
 
-    for(int i = 0; i < 5; i++) {
-        for(int j = 0; j < 5; j++) {
+    for(int i = 0; i < N; i++) {
+        for(int j = 0; j < N; j++) {
             // garantindo que a soma de todas as células do kernel somem 1
             // pra intensidade média da imagem ser mantida.
             gaussian_kernel[i][j] /= sum; 
@@ -109,25 +114,29 @@ void generate_gaussian_kernel() {
     }
 }
 
-void gaussian_blur(image& img) {
+image convolution(image& img, double kernel[N][N]) {
     int h = img.h;
     int w = img.w;
 
+    image out(h, w);
+    
     for(int i = 0; i < h; i++) {
         for(int j = 0; j < w; j++) {
-            int r = 0, g = 0, b = 0;
+            unsigned char r = 0, g = 0, b = 0;
 
-            for(int x = 0; x < 5; x++) {
-                for(int y = 0; y < 5; y++) {
-                    r += img.get_img()[(i-5/2+x + h) % h][(j-5/2+y + w) % w].r * gaussian_kernel[x][y];
-                    g += img.get_img()[(i-5/2+x + h) % h][(j-5/2+y + w) % w].g * gaussian_kernel[x][y];
-                    b += img.get_img()[(i-5/2+x + h) % h][(j-5/2+y + w) % w].b * gaussian_kernel[x][y];
+            for(int x = 0; x < N; x++) {
+                for(int y = 0; y < N; y++) {
+                    r += img.get_img()[(i-N/2+x + h) % h][(j-N/2+y + w) % w].r * kernel[x][y];
+                    g += img.get_img()[(i-N/2+x + h) % h][(j-N/2+y + w) % w].g * kernel[x][y];
+                    b += img.get_img()[(i-N/2+x + h) % h][(j-N/2+y + w) % w].b * kernel[x][y];
                 }
             }
 
-            img.get_img()[i][j] = { r, g, b };
+            out.get_img()[i][j] = { r, g, b };
         }
     }
+
+    return out;
 }
 
 int main() {
@@ -139,8 +148,8 @@ int main() {
 
     generate_gaussian_kernel();
 
-    gaussian_blur(img);
-    img.raw_img(rgb_image);
+    image filtered_img = convolution(img, gaussian_kernel);
+    filtered_img.raw_img(rgb_image);
 
     stbi_write_png("out.png", w, h, 3, rgb_image, w * 3);
     stbi_image_free(rgb_image);
