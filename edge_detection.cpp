@@ -50,6 +50,15 @@ public:
 		return mat[x];
 	}
 
+    // eleva todas as entradas ao quadrado
+    void pow2() {
+        for(int i = 0; i < h; i++) {
+            for(int j = 0; j < w; j++) {
+                mat[i][j] *= mat[i][j];
+            }
+        }
+    }
+
     // tira a raiz quadrada de todas as entradas
     void sqrt_() {
         for(int i = 0; i < h; i++) {
